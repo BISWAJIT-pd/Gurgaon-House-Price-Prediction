@@ -19,19 +19,27 @@ feature_text = joblib.load(BASE_DIR / "dataset" / "feature_text.pkl")
 group_df = new_df.groupby('sector')[
     ['price','price_per_sqft','built_up_area','latitude','longitude']
 ].mean()
-st.header('Sector PRICE_per_squarefit map')
+st.header("Sector PRICE per Square Feet Map")
 
-fig = px.scatter_map(
-    group_df,
+map_df = group_df.reset_index()
+
+fig = px.scatter_geo(
+    map_df,
     lat="latitude",
     lon="longitude",
     color="price_per_sqft",
     size="built_up_area",
+    hover_name="sector",
     color_continuous_scale=px.colors.cyclical.IceFire,
-    zoom=10,
-    map_style="open-street-map",
-    height=700,
-    hover_name=group_df.index
+    projection="mercator",
+    height=700
+)
+
+fig.update_geos(
+    center={"lat": 28.45, "lon": 77.03},
+    projection_scale=80,
+    showcountries=True,
+    showland=True
 )
 
 st.plotly_chart(fig, use_container_width=True)
