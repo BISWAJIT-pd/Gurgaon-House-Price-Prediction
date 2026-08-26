@@ -6,7 +6,6 @@ import joblib
 import pickle
 st.set_page_config(page_title="Recommender")
 
-location_df = joblib.load('dataset/location_distancea_df.joblib')
 st.title('Select Location and Radius')
 location_s=st.selectbox('Select Location',sorted(location_df.columns.tolist()))
 radius=st.number_input('Radius in Kilomiteres')
@@ -15,9 +14,25 @@ if st.button('Search'):
     for i,j in x.items():
         st.text(str(i)+' '+str(round(j/1000))+'km')
 
-cosine_sim1=joblib.load('dataset/cosine_sim1.joblib')
-cosine_sim2=joblib.load('dataset/cosine_sim2.joblib')
-cosine_sim3=joblib.load('dataset/cosine_sim3.joblib')
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+location_df = joblib.load(
+    BASE_DIR / "dataset" / "location_distancea_df.joblib"
+)
+
+cosine_sim1 = joblib.load(
+    BASE_DIR / "dataset" / "cosine_sim1.joblib"
+)
+
+cosine_sim2 = joblib.load(
+    BASE_DIR / "dataset" / "cosine_sim2.joblib"
+)
+
+cosine_sim3 = joblib.load(
+    BASE_DIR / "dataset" / "cosine_sim3.joblib"
+)
 
 
 def recommend_properties_with_scores(property_name, top_n=5):
