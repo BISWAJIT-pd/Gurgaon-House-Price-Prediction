@@ -6,8 +6,12 @@ st.set_page_config(page_title="Plotting demo")
 st.title("Price predictor 💰")
 import pickle
 import joblib
-df=joblib.load("df (1).pkl")
-pipeline = joblib.load("pipeline (1).pkl")
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+df = joblib.load(BASE_DIR / "df (1).pkl")
+pipeline = joblib.load(BASE_DIR / "pipeline (1).pkl")
 
 print("Model loaded successfully!")
 st.header('Enter your inputs')
