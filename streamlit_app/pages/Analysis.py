@@ -10,7 +10,12 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 new_df = pd.read_csv(BASE_DIR / 'dataset' / 'data_viz1.csv')
-feature_text = joblib.load("dataset/feature_text.pkl")
+from pathlib import Path
+import joblib
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+feature_text = joblib.load(BASE_DIR / "dataset" / "feature_text.pkl")
 group_df = new_df.groupby('sector')[
     ['price','price_per_sqft','built_up_area','latitude','longitude']
 ].mean()
