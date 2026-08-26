@@ -1,1 +1,9 @@
 
+streamlit
+streamlit-lottie
+pandas
+numpy
+scikit-learn
+joblib
+plotly
+requests
